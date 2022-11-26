@@ -18,7 +18,7 @@ def transform(soup):
     for item in divs:
         title = item.find('h2', class_ = "woocommerce-loop-product__title").text.strip()
         additional_info = item.find('p').text.strip()
-        price = item.find('span', class_ = 'price').text.strip()
+        price = item.find('span', class_ = 'price').text.replace("KSh","" ).strip()
         
         wine ={
             'Title': title,
@@ -28,13 +28,15 @@ def transform(soup):
         wine_list.append(wine)
            
     return
-
+ 
 
 wine_list =[]
+# we are looping through all the pages in the website
 for i in range(0,14):
     c = extract(0)
     transform(c)
     
 df = pd.DataFrame(wine_list)
-df.to_csv('wines.csv')
+print(df.head(5))
+#df.to_csv('wines1.csv')
       
